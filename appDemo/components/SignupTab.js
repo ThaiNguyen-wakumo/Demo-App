@@ -10,7 +10,8 @@ import {
   Platform,
   TouchableHighLight,
   Dimensions,
-  TextInput
+  TextInput,
+  TouchableHighLight
 } from "react-native";
 import Button from "react-native-button";
 import firebase from "react-native-firebase";
