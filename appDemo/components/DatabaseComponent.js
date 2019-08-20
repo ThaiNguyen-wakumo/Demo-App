@@ -1,69 +1,119 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
-  FlatList,
+  Platform,
   StyleSheet,
   Text,
   View,
-  Image,
-  Alert,
-  Platform,
-  TouchableHighLight,
-  RefreshControl,
-  TextInput
+  FlatList,
+  TextInput,
+  TouchableHighlight
 } from "react-native";
 
 import firebase from "react-native-firebase";
 
-const iosConfig = {
-  clientId:
-    "56901142324-kkliklbnmp850dqtj2oaanmo7ull40eh.apps.googleusercontent.com",
-  appId: "1:56901142324:ios:1cbc3485c3868103",
-  apiKey: "AIzaSyCOLi1lKOaeimUlimjAA6dtgJ6WeSAMtGw",
-  databaseURL: "https://appdemo-b6ce0.firebaseio.com",
-  storageBucket: "appdemo-b6ce0.appspot.com",
-  messagingSenderId: "56901142324",
-  projectId: "appdemo-b6ce0",
-  persistance: true
-};
-
-const androidConfig = {
-  persistance: true
-};
-
-const animalApp = firebase.initializeApp(
-  Platform.OS === "ios" ? iosConfig : androidConfig,
-  "animalApp"
-);
-
-const rootRef = firebase.database().ref();
-const animalRef = rootRef.child("animal");
-
-export default class DatabaseComponent extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      animals: [],
-      newAnimalName: "",
+      users: [],
+      newUserName: "",
+      newUserAge: "",
+      newUserGender: "",
+      newUserEmail: "",
+      newUserPassword: "",
       loading: false
     };
+    this.iosConfig = {
+      clientId:
+        "56901142324-kkliklbnmp850dqtj2oaanmo7ull40eh.apps.googleusercontent.com",
+      appId: "1:56901142324:ios:1cbc3485c3868103",
+      apiKey: "AIzaSyCOLi1lKOaeimUlimjAA6dtgJ6WeSAMtGw",
+      databaseURL: "https://appdemo-b6ce0.firebaseio.com",
+      storageBucket: "appdemo-b6ce0.appspot.com",
+      messagingSenderId: "56901142324",
+      projectId: "appdemo-b6ce0",
+      persistance: true
+    };
+
+    this.androidConfig = {
+      persistance: true
+    };
+
+    this.animalApp = firebase.initializeApp(
+      Platform.OS === "ios" ? this.iosConfig : this.androidConfig,
+      "animalApp"
+    );
+
+    this.rootRef = firebase.database().ref();
+    console.log(this.rootRef);
+
+    this.userRef = this.rootRef.child("user");
+    console.log(this.userRef);
   }
-  componentDidMount() {}
+
+  // componentDidMount() {
+  //   animalRef.on("value", childSnapshot => {
+  //     const animals = [];
+  //     childSnapshot.forEach(doc => {
+  //       animals.push({
+  //         key: doc.key,
+  //         animalName: doc.toJSON().animalName
+  //       });
+  //       this.setState({
+  //         animals: animals.sort((a, b) => {
+  //           return a.animalName < b.animalName;
+  //         }),
+  //         loading: false
+  //       });
+  //     });
+  //   });
+  // }
+
+  onPressAdd = () => {
+    if (this.state.newUserName.trim() === "") {
+      alert("User name is blank");
+      return;
+    }
+    if (this.state.newUserAge.trim() === "") {
+      alert("User age is blank");
+      return;
+    }
+    if (this.state.newUserGender.trim() === "") {
+      alert("User gender is blank");
+      return;
+    }
+    if (this.state.newUserEmail.trim() === "") {
+      alert("User email is blank");
+      return;
+    }
+    if (this.state.newUserPassword.trim() === "") {
+      alert("User password is blank");
+      return;
+    }
+
+    this.userRef.push({
+      userName: this.state.newUserName,
+      userAge: this.state.newUserAge,
+      userGender: this.state.newUserGender,
+      userEmail: this.state.newUserEmail,
+      userPassword: this.state.newUserPassword
+    });
+  };
+
   render() {
     return (
       <View
         style={{
           flex: 1,
-          marginTop: Platform.OS === "ios" ? iosConfig : androidConfig
+          marginTop: Platform.OS === "ios" ? 1 : 1
         }}
       >
         <View
           style={{
-            backgroundColor: "green",
-            flexDirection: "row",
-            justifyContent: "flex-end",
+            backgroundColor: "white",
+            flexDirection: "column",
             alignItems: "center",
-            height: 64
+            paddingTop: 15
           }}
         >
           <TextInput
@@ -72,33 +122,118 @@ export default class DatabaseComponent extends Component {
               width: 200,
               margin: 10,
               padding: 10,
-              borderColor: "white",
+              borderColor: "gray",
               borderWidth: 1,
-              color: "white"
+              color: "black"
             }}
             keyboardType="default"
-            placeholderTextColor="white"
-            placeholder="Enter animal name"
+            placeholderTextColor="black"
+            placeholder="Enter user name"
             autoCapitalize="none"
             onChangeText={text => {
               this.setState({
-                newAnimalName: text
+                newUserName: text
               });
             }}
-            value={this.state.newAnimalName}
+            value={this.state.newUserName}
           />
 
-          <TouchableHighLight
+          <TextInput
             style={{
-              marginRight: 10
+              height: 40,
+              width: 200,
+              margin: 10,
+              padding: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+              color: "black"
             }}
-            underlayColor="tomato"
-            onPress={this.onPressAdd}
+            keyboardType="default"
+            placeholderTextColor="black"
+            placeholder="Enter user age"
+            autoCapitalize="none"
+            onChangeText={text => {
+              this.setState({
+                newUserAge: text
+              });
+            }}
+            value={this.state.newUserAge}
           />
+
+          <TextInput
+            style={{
+              height: 40,
+              width: 200,
+              margin: 10,
+              padding: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+              color: "black"
+            }}
+            keyboardType="default"
+            placeholderTextColor="black"
+            placeholder="Enter user gender"
+            autoCapitalize="none"
+            onChangeText={text => {
+              this.setState({
+                newUserGender: text
+              });
+            }}
+            value={this.state.newUserGender}
+          />
+
+          <TextInput
+            style={{
+              height: 40,
+              width: 200,
+              margin: 10,
+              padding: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+              color: "black"
+            }}
+            keyboardType="default"
+            placeholderTextColor="black"
+            placeholder="Enter user email"
+            autoCapitalize="none"
+            onChangeText={text => {
+              this.setState({
+                newUserEmail: text
+              });
+            }}
+            value={this.state.newUserEmail}
+          />
+
+          <TextInput
+            style={{
+              height: 40,
+              width: 200,
+              margin: 10,
+              padding: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+              color: "black"
+            }}
+            keyboardType="default"
+            placeholderTextColor="black"
+            placeholder="Enter user password"
+            autoCapitalize="none"
+            secureTextEntry="true"
+            onChangeText={text => {
+              this.setState({
+                newUserPassword: text
+              });
+            }}
+            value={this.state.newUserPassword}
+          />
+
+          <TouchableHighlight onPress={this.onPressAdd}>
+            <Text>Add</Text>
+          </TouchableHighlight>
         </View>
 
         <FlatList>
-          data={this.state.animals}
+          data={this.state.users}
           renderItem=
           {({ item, index }) => {
             return (
@@ -109,7 +244,7 @@ export default class DatabaseComponent extends Component {
                   margin: 10
                 }}
               >
-                {item.animalName}
+                {item.userName}
               </Text>
             );
           }}
@@ -118,3 +253,22 @@ export default class DatabaseComponent extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10
+  },
+  instructions: {
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  }
+});

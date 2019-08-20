@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import Button from "react-native-button";
 import firebase from "react-native-firebase";
-
 const iosConfig = {
   clientId:
     "56901142324-kkliklbnmp850dqtj2oaanmo7ull40eh.apps.googleusercontent.com",
@@ -26,19 +25,15 @@ const iosConfig = {
   projectId: "appdemo-b6ce0",
   persistance: true
 };
-
 const androidConfig = {
   persistance: true
 };
-
 const animalApp = firebase.initializeApp(
   Platform.OS === "ios" ? iosConfig : androidConfig,
   "animalApp"
 );
-
 const rootRef = firebase.database().ref();
 const animalRef = rootRef.child("animal");
-
 export default class SignupTab extends Component {
   writeUserData(fullname) {
     firebase.database
@@ -53,7 +48,6 @@ export default class SignupTab extends Component {
         console.log("error", error);
       });
   }
-
   styles = StyleSheet.create({
     containerUp: {
       alignItems: "center",
@@ -87,7 +81,6 @@ export default class SignupTab extends Component {
       paddingTop: 5
     }
   });
-
   render() {
     return (
       <View>
