@@ -103,7 +103,7 @@ fontSize: 18,
 color: 'black'
 },
 signupButton: {
-width: 145,
+width: 146,
 height: 35,
 borderRadius: 12,
 justifyContent: 'center',
