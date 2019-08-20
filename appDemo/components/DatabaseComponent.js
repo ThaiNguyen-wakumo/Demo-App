@@ -269,6 +269,6 @@ const styles = StyleSheet.create({
   instructions: {
     textAlign: "center",
     color: "#333333",
-    marginBottom: 5
+    marginBottom: 4
   }
 });
