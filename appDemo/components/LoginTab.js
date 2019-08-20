@@ -80,7 +80,7 @@ export default class LoginComponent extends Component {
             margin: 40
           }}
         >
-          Login with Firebase
+          Login Firebase
         </Text>
 
         <TextInput
