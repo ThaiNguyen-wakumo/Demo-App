@@ -51,7 +51,7 @@ marginTop: 40
 },
 title: {
 color: 'black',
-fontSize: 20,
+fontSize: 21,
 fontWeight: 'bold'
 },
 containerMid: {
