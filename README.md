@@ -1,1 +1,1 @@
-This project is to create an app by React Native.
+This project is to create a simple app by React Native.
